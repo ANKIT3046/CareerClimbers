@@ -103,7 +103,9 @@ app.use(express.json())
 //-------------------this is for admin only field for udemy courses---------------------------------
 app.post('/admin',async (req,res) =>{
   const link =new List(req.body)
-  console.log(link.link)
+  string=link.link
+  var res = string.toString().split("?")
+  console.log(res)
   axios.get(link.link).then(function(response){
     const $ = cheerio.load(response.data)
     title = $('h1.clp-lead__title').html();
@@ -120,7 +122,8 @@ app.post('/admin',async (req,res) =>{
       img:image,
       link:link.link,
       name:title,
-      tag:tag[1]
+      tag:tag[1],
+      couponCode:res[1]
     });
 
 
@@ -129,7 +132,7 @@ app.post('/admin',async (req,res) =>{
   try {
     await link.save()
 
-    res.send(201).send(link)
+    res.send(201).send(details)
 
 
   } catch (e){
@@ -137,6 +140,7 @@ app.post('/admin',async (req,res) =>{
     res.status(400).send(e)
   }
 })
+
 
 app.get('/total_courses',function (req,res){
   Store_details.count({}, function(err,result){
