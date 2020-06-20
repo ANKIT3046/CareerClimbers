@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
+  <link rel="stylesheet" href="/css/styles.css">
+
+
+</head>
+
+<body>
+  {{>header}}
+  <div class="container">
+    <div class="row">
+      {{#each course}}
+      <div class="col-md-4 col-xs-6">
+        <div class="card mb-4 box-shadow">
+          <img class="course_img" src={{this.img}} style="height:200px; width:100%; display:block;" data-holder-rendered="true" alt="udemy">
+          <div class="card-body">
+            <h3>{{this.name}}</h2>
+              <div class="my_box">
+                <div class="link">
+                  <a class="btn abc btn-primary" href={{this.link}} role="button">Enroll now</a>
+
+                  <span class="badge badge-success" style="background-color:green;">free</span>
+                  <span class="badge badge-danger" style="background-color: red;">New</span>
+                </div>
+              </div>
+          </div>
+        </div>
+      </div>
+      {{/each}}
+
+    </div>
+  </div>
+
+</body>
+
+</html>
