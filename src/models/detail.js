@@ -18,4 +18,5 @@ const Store_details =mongoose.model('Store_details',{
     
   }
 })
+
 module.exports = Store_details
