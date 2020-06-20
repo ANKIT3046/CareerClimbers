@@ -9,6 +9,7 @@ const Courses = mongoose.model('Courses',{
     type:String,
     required:true
   },
+  
   link:{
     type:String,
     reqired:true
