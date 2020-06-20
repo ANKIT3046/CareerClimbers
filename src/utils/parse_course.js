@@ -14,6 +14,7 @@ var url_list=["https://www.udemy.com/course/react-the-complete-guide-incl-redux/
 var new_l=[]
 
 
+
 function my_detail(err,resp,html){
   if (!err && resp.statusCode == 200){
     const $ = cheerio.load(html);
