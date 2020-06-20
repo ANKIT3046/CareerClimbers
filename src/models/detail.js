@@ -15,8 +15,10 @@ const Store_details =mongoose.model('Store_details',{
   },
   tag:{
     type:String,
-    
+
+  },
+  couponCode:{
+    type:String,
   }
 })
-
 module.exports = Store_details
