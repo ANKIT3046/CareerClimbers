@@ -1,0 +1,88 @@
+.btn-primary,
+.btn-primary:hover,
+.btn-primary:active,
+.btn-primary:visited,
+.btn-primary:focus {
+    background-color: #0088cc;
+
+}
+
+
+.btn{
+  border-radius: 0px;
+}
+
+.my_nav{
+  margin-right: 40px;
+}
+
+.pad{
+  padding:0 30px 0 10px;
+  font-family: monospace;
+  color:#797776;
+  font-weight: bold;
+
+}
+
+
+a{
+  text-decoration: none !important;
+}
+
+
+.top{
+  padding:3px 10px 3px 10px;
+}
+/*
+.col-md-3{
+  margin:0 10px 10px 10px;
+}
+.col-sm-6{
+  margin:0 10px 10px 10px;
+}
+*/
+.col-md-4{
+  padding-bottom: 20px;
+
+}
+
+.mb-4{
+  border: 1px solid white;
+
+}
+
+.course_img{
+  border-radius: 10px;
+}
+
+h3{
+  font-weight: bold;
+  height: 20px;
+  padding:0 10px 10px 5px;
+}
+
+.link{
+  margin:60px 0 0 10px;
+}
+
+.badge-success{
+  margin-left: 80px;
+}
+.badge-danger{
+  margin-left: 5px;
+}
+
+.badge{
+  border-radius: 3px;
+  height:20px;
+  width: 40px
+}
+
+.abc{
+  border-radius: 3px;
+  width: 85;
+  height: 35px;
+}
+.link{
+  display: inline-block;
+}
