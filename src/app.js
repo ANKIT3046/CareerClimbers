@@ -36,15 +36,6 @@ app.use(express.static(publicDirectoryPath));
 
 app.use(express.json())
 
-
-// var url_list=["https://www.udemy.com/course/insiders-guide-to-helpdesk-desktop-server-support/?couponCode=JUNE2020",
-//               "https://www.udemy.com/course/mongodb-the-complete-developers-guide/",
-//               "https://www.udemy.com/course/ios-13-app-development-bootcamp/",
-//               "https://www.udemy.com/course/the-complete-react-native-and-redux-course/",
-//               "https://www.udemy.com/course/the-web-developer-bootcamp/",
-//               "https://www.udemy.com/course/creativity-and-innovation-for-business/"]
-
-
 //topic-menu__items topic-menu__item topic-menu__link
 //
 
@@ -108,8 +99,8 @@ app.post('/admin',async (req,res) =>{
   console.log(res)
   axios.get(link.link).then(function(response){
     const $ = cheerio.load(response.data)
-    title = $('h1.clp-lead__title').html();
-    image = $('.introduction-asset img').attr('src')
+    let title = $('h1.clp-lead__title').html();
+    let image = $('.introduction-asset img').attr('src')
 
     var tag=[]
     $('.topic-menu__items').find('a').each(function (index,element){
