@@ -36,102 +36,59 @@ app.use(express.static(publicDirectoryPath));
 
 app.use(express.json())
 
-//topic-menu__items topic-menu__item topic-menu__link
-//
 
 
-// app.get('',(req,res,next) =>{
-//   async function my_detail(html,url){
-//       try{
-//           const $ = await cheerio.load(html);
-//           const siteHeading = $('.row');
-//
-//           const output = siteHeading.find('h1').text().replace("\n",'');
-//
-//           const image = $('.introduction-asset img').attr('src')
-//
-//           // console.log(image)
-//           // console.log(output)
-//
-//
-//           const details={
-//           img:image,
-//           name:output,
-//           link:url
-//           }
-//           return await details
-//       }catch(e){
-//           console.log("ERROR: Could not parse")
-//           return null
-//       }
-//   }
-// getDataFromURL(url_list)
-// async function getDataFromURL(url_list){
-//     var new_l=[]
-//     // for every link. fetch the data, get the html response and pass it to my_detail function to get name and img
-//     url_list.forEach(url=>{
-//         fetch(url)
-//         .then(res=> res.text())
-//         .then(html=>my_detail(html,url))
-//         .then(detail=>new_l.push(detail))
-//
-//     })
-//
-//     setTimeout(function(){
-//         p={courses:new_l}
-//         res.render('index',p)
-//         console.log(p)
-//     },4000)
-// }
-//
-//     //res.render('index',course_list)
-//
-// })
+
+
+
+
 
 
 //-------------------------------------------------------------------------------------//
 
 //-------------------this is for admin only field for udemy courses---------------------------------
-app.post('/admin',async (req,res) =>{
-  const link =new List(req.body)
-  string=link.link
-  var res = string.toString().split("?")
-  console.log(res)
-  axios.get(link.link).then(function(response){
-    const $ = cheerio.load(response.data)
-    let title = $('h1.clp-lead__title').html();
-    let image = $('.introduction-asset img').attr('src')
+app.post('/admin',async (req,response) =>{
 
-    var tag=[]
-    $('.topic-menu__items').find('a').each(function (index,element){
-      tag.push($(element).text())
-    })
-    console.log(tag[1])
-//topic-menu__items topic-menu__item topic-menu__link
-
-    const details = new Store_details({
-      img:image,
-      link:link.link,
-      name:title,
-      tag:tag[1],
-      couponCode:res[1]
-    });
-
-
-    details.save()
-  })
   try {
+    const link =new List(req.body)
+    string=link.link
+    var res = string.toString().split("?")
+
+    axios.get(link.link).then(async function(response){
+      const $ = cheerio.load(response.data)
+      let title = $('h1.clp-lead__title').html();
+      let image = $('.introduction-asset img').attr('src')
+
+      var tag=[]
+      $('.topic-menu__items').find('a').each(function (index,element){
+        tag.push($(element).text())
+      })
+
+  //topic-menu__items topic-menu__item topic-menu__link
+
+      const details = new Store_details({
+        img:image,
+        link:link.link,
+        name:title,
+        tag:tag[1],
+        couponCode:res[1]
+      });
+
+
+      await details.save()
+    })
+
     await link.save()
 
-    res.send(201).send(details)
+    //response.sendStatus(200).send(link)
+    response.json(link)
 
 
   } catch (e){
     //res.sendStatus(400)
-    res.status(400).send(e)
+    response.sendStatus(400).send(e)
   }
 })
-
 
 app.get('/total_courses',function (req,res){
   Store_details.count({}, function(err,result){
@@ -146,7 +103,7 @@ app.get('/total_courses',function (req,res){
 app.get('', async (req,res,next) =>{
   try {
     const details = await Store_details.find({})
-    console.log(details)
+
     let my_list = {course:details}
     //console.log(my_list)
 
@@ -168,7 +125,7 @@ app.post('/courses', async (req,res) =>{
 
   try {
     await course.save()
-    res.send(201).send(course)
+    res.json(course)
   } catch (e){
     res.status(400).send(e)
   }
@@ -225,26 +182,36 @@ app.get('/course_details/:id', async (req, res) =>{
   axios.get(url)
     .then(function (response) {
       const $ = cheerio.load(response.data);
-      title =$('h1.clp-lead__title').html();
-      learning =$('.what-you-get__items')
+      let title =$('h1.clp-lead__title').html();
+      let learning =$('.what-you-get__items')
                   .find('.what-you-get__text')
                   .contents().toArray()
 
-      description = $('div.clp-component-render div.description div.js-simple-collapse-inner').html();
-      image = $('.introduction-asset img').attr('src')
-      content = $('.curriculum-wrapper')
+      let description = $('div.clp-component-render div.description div.js-simple-collapse-inner').html();
+      let image = $('.introduction-asset img').attr('src')
+      let content = $('.curriculum-wrapper')
                   .find('.section-title-text')
                   .contents()
                   .toArray()
+      console.log(title)
+      console.log(learning)
+      console.log(description)
     })
     .catch(function (error) {
       console.log(error);
     })
     .then (function () {
-      console.log(title)
-      console.log(learning)
-      console.log(description)
+      // res.render("make you details page",
+      //       {
+      //
+      //           description: description,
+      //           learning:learning,
+      //           content: content,
+      //           title:title,
+      //           image: image
+      //       })
     })
+    res.send(details)
     // details are stored are stord in all above variable use in the template as a variable and pass it in render function
 })
 
