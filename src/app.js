@@ -41,7 +41,53 @@ app.use(express.json())
 
 
 
-
+// app.get('',(req,res,next) =>{
+//   async function my_detail(html,url){
+//       try{
+//           const $ = await cheerio.load(html);
+//           const siteHeading = $('.row');
+//
+//           const output = siteHeading.find('h1').text().replace("\n",'');
+//
+//           const image = $('.introduction-asset img').attr('src')
+//
+//           // console.log(image)
+//           // console.log(output)
+//
+//
+//           const details={
+//           img:image,
+//           name:output,
+//           link:url
+//           }
+//           return await details
+//       }catch(e){
+//           console.log("ERROR: Could not parse")
+//           return null
+//       }
+//   }
+// getDataFromURL(url_list)
+// async function getDataFromURL(url_list){
+//     var new_l=[]
+//     // for every link. fetch the data, get the html response and pass it to my_detail function to get name and img
+//     url_list.forEach(url=>{
+//         fetch(url)
+//         .then(res=> res.text())
+//         .then(html=>my_detail(html,url))
+//         .then(detail=>new_l.push(detail))
+//
+//     })
+//
+//     setTimeout(function(){
+//         p={courses:new_l}
+//         res.render('index',p)
+//         console.log(p)
+//     },4000)
+// }
+//
+//     //res.render('index',course_list)
+//
+// })
 
 
 //-------------------------------------------------------------------------------------//
@@ -161,8 +207,15 @@ app.delete('/courses/:id', async (req,res) =>{
 })
 
 //---------------------------------------------------//
+//---------------this is tag search route----------//
 
+app.get('/courses/:searchtag', async (req,res) =>{
+  const tag = req.params.searchtag
+  const list = await Store_details.find({tag:"\n"+tag+"\n"})
+  res.json(list)
 
+})
+//----------------------end of search tag-------------------//
 //------------------this is logic for facting udemy course data in real time-----------//
 //------by scrapping ------------------------------//
 app.get('/demo_route', async (req, res) => {
@@ -214,6 +267,11 @@ app.get('/course_details/:id', async (req, res) =>{
     res.send(details)
     // details are stored are stord in all above variable use in the template as a variable and pass it in render function
 })
+
+
+
+
+
 
 ///-----------------------------------------------------------------------------------//
 app.listen(3000, () =>{
